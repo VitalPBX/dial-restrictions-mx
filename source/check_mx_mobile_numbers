@@ -1,0 +1,39 @@
+#!/usr/bin/php
+<?php
+
+if($argc != 2) {
+	print 'invalid';
+}
+
+list(, $phone) = $argv;
+if(strlen(trim($phone)) != 10)
+	print 'invalid';
+
+$area_serie = substr($phone, 0,6);
+$range = substr($phone,6, 4);
+
+$host = 'localhost';
+$user = 'root';
+$password = '';
+$charset = 'utf8mb4';
+$options = [
+	PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+	PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+	PDO::ATTR_EMULATE_PREPARES   => false,
+];
+
+try {
+	$db = new PDO("mysql:host={$host};dbname=asterisk;charset=$charset",$user, $password, $options);
+	$stmt = $db->query("select `mobile` from `ift` where concat(`area`,`serie`) = '{$area_serie}' and $range between `initial` and `final`");
+	$row = $stmt->fetch(PDO::FETCH_ASSOC);
+	$row = (object) $row;
+
+	_print(($row->mobile == '1' ? 'mobile' : 'conventional'));
+} catch (PDOException $e){
+	_print('Database Error: ' . $e->getMessage());
+}
+
+function _print($msg){
+	echo $msg;
+	exit ;
+}
