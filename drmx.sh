@@ -6,7 +6,7 @@ __      ___ _        _ _____  ______   __
 \ \    / (_) |      | |  __ \|  _ \ \ / /
  \ \  / / _| |_ __ _| | |__) | |_) \ V /
   \ \/ / | | __/ _  | |  ___/|  _ < > <
-   \  /  | | || (_| | | |    | |_) / . \
+   \  /  | | || (_| | | |    | |_) / . \\
     \/   |_|\__\__,_|_|_|    |____/_/ \_\
 $(tput sgr0)"
 
@@ -21,6 +21,7 @@ wget -P /etc/asterisk/ombutel/ https://raw.githubusercontent.com/VitalPBX/dial-r
 #Download the PHP script
 rm -rf /usr/share/ombutel/scripts/check_mx_mobile_numbers
 wget -P /usr/share/ombutel/scripts/ https://raw.githubusercontent.com/VitalPBX/dial-restrictions-mx/master/source/check_mx_mobile_numbers
+chmod +x /usr/share/ombutel/scripts/check_mx_mobile_numbers
 
 #Download the SQL file
 rm -rf /tmp/ift.sql
